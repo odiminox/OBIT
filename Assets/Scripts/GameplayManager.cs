@@ -7,6 +7,7 @@ public class GameplayManager : MonoBehaviour
 {
     public GameObject player;
     public GameObject layers;
+    public GameObject pipes;
 
     public static int currentLayerNum = 0;
 
@@ -25,6 +26,8 @@ public class GameplayManager : MonoBehaviour
     {
         player.SetActive(true);
         layers.SetActive(true);
+        pipes.SetActive(true);
+        pipes.GetComponent<Pipes>().SetRandomPipes();
     }
 
     // Start is called before the first frame update
