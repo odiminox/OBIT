@@ -11,45 +11,95 @@ public class PlayerControls : MonoBehaviour
     enum DIRECTION { LEFT, RIGHT };
     DIRECTION currentDirection = DIRECTION.LEFT;
 
+    public Node nodeADetected;
+    public Node nodeBDetected;
+
+    public bool didDetect;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        didDetect = false;
     }
 
     public void NodeDetection()
     {
-        RaycastHit2D hitInner = Physics2D.Raycast(transform.position, Vector2.up);
+        didDetect = false;
 
-        if (hitInner.collider != null)
+        if (Input.GetMouseButtonDown(0))
         {
-            Node node = hitInner.transform.GetComponent<Node>();
+            RaycastHit2D hitInner = Physics2D.Raycast(transform.position, Vector2.up);
 
-            if (node != null)
+            if (hitInner.collider != null)
             {
-                if (node.nodePosition == Node.NODEPOSITION.INNER)
-                {
-                    Debug.Log("INNER");
-                }
-            }
-        }
-
-        RaycastHit2D hitOuter = Physics2D.Raycast(transform.position, -Vector2.up);
-
-        if (hitOuter.collider != null)
-        {
-            if (hitOuter.transform.name != "Player")
-            {
-                Node node = hitOuter.transform.GetComponent<Node>();
+                Node node = hitInner.transform.GetComponent<Node>();
 
                 if (node != null)
                 {
-                    if (node.nodePosition == Node.NODEPOSITION.OUTER)
+                    if (node.nodePosition == Node.NODEPOSITION.INNER)
                     {
-                        Debug.Log("OUTER");
+                        if (nodeADetected == null)
+                        {
+                            didDetect = true;
+
+                            nodeADetected = node;
+
+                            Debug.Log("Match on INNER with: " + node.nodeType.ToString());
+                        }
                     }
                 }
+            }
 
+            RaycastHit2D hitOuter = Physics2D.Raycast(transform.position, -Vector2.up);
+
+            if (hitOuter.collider != null)
+            {
+                if (hitOuter.transform.name != "Player")
+                {
+                    Node node = hitOuter.transform.GetComponent<Node>();
+
+                    if (node != null)
+                    {
+                        if (node.nodePosition == Node.NODEPOSITION.OUTER)
+                        {
+                            didDetect = true;
+
+                            nodeBDetected = node;
+
+                            Debug.Log("Match on OUTER with: " + node.nodeType.ToString());
+                        }
+                    }
+                }
+            }
+
+            if ((nodeBDetected != null) && nodeADetected != null)
+            {
+                if ((nodeBDetected.nodeType == Node.NODETYPE.BLUE) && (nodeADetected.nodeType == Node.NODETYPE.BLUE))
+                {
+                    Debug.Log("MATCH ON BLUE");
+
+                    nodeBDetected.isSolved = true;
+                    nodeADetected.isSolved = true;
+                }
+                else if ((nodeBDetected.nodeType == Node.NODETYPE.ORANGE) && (nodeADetected.nodeType == Node.NODETYPE.ORANGE))
+                {
+                    Debug.Log("MATCH ON ORANGE");
+                }
+                else
+                {
+                    Debug.Log("INCORRECT MATCH");
+                }
+
+                nodeADetected = null;
+                nodeBDetected = null;
+            }
+
+            if (!didDetect)
+            {
+                Debug.Log("MISS!");
+
+                nodeADetected = null;
+                nodeBDetected = null;
             }
         }
     }
@@ -64,13 +114,16 @@ public class PlayerControls : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            if (currentDirection == DIRECTION.LEFT)
+            if (!didDetect)
             {
-                currentDirection = DIRECTION.RIGHT;
-            }
-            else if (currentDirection == DIRECTION.RIGHT)
-            {
-                currentDirection = DIRECTION.LEFT;
+                if (currentDirection == DIRECTION.LEFT)
+                {
+                    currentDirection = DIRECTION.RIGHT;
+                }
+                else if (currentDirection == DIRECTION.RIGHT)
+                {
+                    currentDirection = DIRECTION.LEFT;
+                }
             }
         }
 
