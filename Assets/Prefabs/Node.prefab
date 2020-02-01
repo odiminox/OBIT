@@ -97,8 +97,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodePosition: 0
   nodeType: 0
-  innerDepth: -0.038
-  outerDepth: -0.0824
+  innerDepth: -0.091
+  outerDepth: -0.1556
   angle: 23.21
   isSolved: 0
 --- !u!61 &-1262505254576862633

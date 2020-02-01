@@ -8,9 +8,11 @@ public class Layer : MonoBehaviour
     public float scaleSpeed;
     public int layerIndex;
 
-    public bool IsLayerActive;
+    public bool isLayerActive;
 
     public Node nodeType;
+
+    public bool forceLayerComplete = false;
 
     public Vector2 targetScale = new Vector2();
 
@@ -127,10 +129,11 @@ public class Layer : MonoBehaviour
         GenerateLayerNodes();
     }
 
+
+    public bool complete = false;
+
     public void CheckForLayerComplete()
     {
-        bool complete = false;
-
         foreach (var node in layerNodes)
         {
             complete = node.isSolved;
@@ -138,6 +141,8 @@ public class Layer : MonoBehaviour
 
         if (complete)
         {
+            complete = false;
+
             GameplayManager.layerComplete.Invoke();
         }
     }
@@ -145,11 +150,29 @@ public class Layer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (IsLayerActive)
+        if (layerIndex == 1)
+        {
+            isLayerActive = true;
+        }
+        else
+        {
+            isLayerActive = false;
+        }
+
+        if (isLayerActive)
         {
             RevealLayerContent();
 
             CheckForLayerComplete();
+
+            if (forceLayerComplete)
+            {
+                forceLayerComplete = false;
+
+                GameplayManager.layerComplete.Invoke();
+            }
+
+            isLayerActive = false;
         }
         else
         {
