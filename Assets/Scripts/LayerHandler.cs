@@ -7,12 +7,16 @@ public class LayerHandler : MonoBehaviour
     public bool generateInitialLayers;
     public float scaleDelta;
 
-
     public int initialLayerCount;
 
     public GameObject layerObject;
 
     List<GameObject> layers = new List<GameObject>();
+
+    public void OnGameStart()
+    {
+        GenerateInitialLayers();
+    }
 
     public void GenerateInitialLayers()
     {
@@ -41,7 +45,7 @@ public class LayerHandler : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        GenerateInitialLayers();
+        GameplayManager.play.AddListener(OnGameStart);
     }
 
     // Update is called once per frame

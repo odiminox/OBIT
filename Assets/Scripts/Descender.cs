@@ -14,6 +14,11 @@ public class Descender : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        GameplayManager.play.AddListener(OnGameStart);
+    }
+
+    public void OnGameStart()
+    {
         layers = layersRoot.GetComponentsInChildren<Layer>().ToList();
     }
 
