@@ -1,12 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class PlayerControls : MonoBehaviour
 {
     public GameObject pivot;
 
     public GameObject beam;
+
+    public static UnityEvent missed = new UnityEvent();
 
     public float speed;
 
@@ -149,6 +152,8 @@ public class PlayerControls : MonoBehaviour
 
                 nodeADetected = null;
                 nodeBDetected = null;
+
+                missed.Invoke();
             }
         }
 
@@ -185,6 +190,8 @@ public class PlayerControls : MonoBehaviour
             if (!didDetect)
             {
                 Debug.Log("MISS!");
+
+                missed.Invoke();
 
                 if (currentDirection == DIRECTION.LEFT)
                 {
