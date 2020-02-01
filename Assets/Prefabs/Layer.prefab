@@ -27,7 +27,7 @@ Transform:
   m_GameObject: {fileID: 5295673438998755004}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 1}
-  m_LocalScale: {x: 50, y: 50, z: 1}
+  m_LocalScale: {x: 0.1, y: 0.1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -71,7 +71,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+  m_Sprite: {fileID: 21300000, guid: 74847a7c914cfbc4eb51711f144f6626, type: 3}
   m_Color: {r: 0.3773585, g: 0.3773585, b: 0.3773585, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -109,6 +109,8 @@ MonoBehaviour:
     type: 3}
   yellowActiveNodeSprite: {fileID: 21300000, guid: 6e54ac51540d489498569bea2147a8bb,
     type: 3}
+  innerLayer: {fileID: 21300000, guid: 322654fd0308ef84a99599f1e68e03c5, type: 3}
+  outerLayer: {fileID: 21300000, guid: 7b7aa6a028b4f0649bc49695cda4dd8f, type: 3}
   isLayerActive: 0
   nodeType: {fileID: 3043417348030417986, guid: 0a5cb299089fde04db74ca51f65039f7,
     type: 3}

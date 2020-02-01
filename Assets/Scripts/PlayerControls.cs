@@ -44,7 +44,12 @@ public class PlayerControls : MonoBehaviour
 
                             nodeADetected = node;
 
-                            Debug.Log("Match on INNER with: " + node.nodeType.ToString());
+                            if (!nodeADetected.isSolved)
+                            {
+                                nodeADetected.SetNodeState(Node.NODESTATE.ACTIVE);
+
+                                Debug.Log("Match on INNER with: " + node.nodeType.ToString());
+                            }
                         }
                     }
                 }
@@ -66,17 +71,86 @@ public class PlayerControls : MonoBehaviour
 
                             nodeBDetected = node;
 
-                            Debug.Log("Match on OUTER with: " + node.nodeType.ToString());
+                            if (!nodeBDetected.isSolved)
+                            {
+                                nodeBDetected.SetNodeState(Node.NODESTATE.ACTIVE);
+
+                                Debug.Log("Match on OUTER with: " + node.nodeType.ToString());
+                            }
                         }
                     }
                 }
             }
+
+            ValidateMatch();
         }
     }
 
     private void FixedUpdate()
     {
         NodeDetection();
+    }
+
+    public bool ValidateMatch()
+    {
+        bool ret = false;
+
+        if ((nodeBDetected != null) && nodeADetected != null)
+        {
+            if (nodeADetected.isSolved && nodeBDetected.isSolved)
+            {
+                return false;
+            }
+
+            if ((nodeBDetected.nodeType == Node.NODETYPE.BLUE) && (nodeADetected.nodeType == Node.NODETYPE.BLUE))
+            {
+                Debug.Log("MATCH ON BLUE");
+
+                nodeBDetected.isSolved = true;
+                nodeADetected.isSolved = true;
+
+                nodeADetected = null;
+                nodeBDetected = null;
+
+                ret = true;
+            }
+            else if ((nodeBDetected.nodeType == Node.NODETYPE.YELLOW) && (nodeADetected.nodeType == Node.NODETYPE.YELLOW))
+            {
+                Debug.Log("MATCH ON YELLOW");
+
+                nodeBDetected.isSolved = true;
+                nodeADetected.isSolved = true;
+
+                nodeADetected = null;
+                nodeBDetected = null;
+
+                ret = true;
+            }
+            else if ((nodeBDetected.nodeType == Node.NODETYPE.RED) && (nodeADetected.nodeType == Node.NODETYPE.RED))
+            {
+                Debug.Log("MATCH ON RED");
+
+                nodeBDetected.isSolved = true;
+                nodeADetected.isSolved = true;
+
+                nodeADetected = null;
+                nodeBDetected = null;
+
+                ret = true;
+            }
+            else
+            {
+                Debug.Log("INCORRECT MATCH");
+
+                nodeADetected.SetNodeState(Node.NODESTATE.INACTIVE);
+                nodeBDetected.SetNodeState(Node.NODESTATE.INACTIVE);
+
+                nodeADetected = null;
+                nodeBDetected = null;
+            }
+        }
+
+        return ret;
     }
 
     // Update is called once per frame
@@ -86,6 +160,8 @@ public class PlayerControls : MonoBehaviour
         {
             if (!didDetect)
             {
+                Debug.Log("MISS!");
+
                 if (currentDirection == DIRECTION.LEFT)
                 {
                     currentDirection = DIRECTION.RIGHT;
@@ -95,32 +171,20 @@ public class PlayerControls : MonoBehaviour
                     currentDirection = DIRECTION.LEFT;
                 }
 
-                Debug.Log("MISS!");
-
-                nodeADetected = null;
-                nodeBDetected = null;
-            }
-
-            if ((nodeBDetected != null) && nodeADetected != null)
-            {
-                if ((nodeBDetected.nodeType == Node.NODETYPE.BLUE) && (nodeADetected.nodeType == Node.NODETYPE.BLUE))
+                if (nodeADetected != null)
                 {
-                    Debug.Log("MATCH ON BLUE");
-
-                    nodeBDetected.isSolved = true;
-                    nodeADetected.isSolved = true;
+                    if (!nodeADetected.isSolved)
+                    {
+                        nodeADetected.SetNodeState(Node.NODESTATE.INACTIVE);
+                    }
                 }
-                else if ((nodeBDetected.nodeType == Node.NODETYPE.YELLOW) && (nodeADetected.nodeType == Node.NODETYPE.YELLOW))
+
+                if (nodeBDetected != null)
                 {
-                    Debug.Log("MATCH ON YELLOW");
-                }
-                else if ((nodeBDetected.nodeType == Node.NODETYPE.RED) && (nodeADetected.nodeType == Node.NODETYPE.RED))
-                {
-                    Debug.Log("MATCH ON RED");
-                }
-                else
-                {
-                    Debug.Log("INCORRECT MATCH");
+                    if (!nodeBDetected.isSolved)
+                    {
+                       nodeBDetected.SetNodeState(Node.NODESTATE.INACTIVE);
+                    }
                 }
 
                 nodeADetected = null;

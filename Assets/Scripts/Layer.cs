@@ -16,6 +16,9 @@ public class Layer : MonoBehaviour
     public Sprite redActiveNodeSprite;
     public Sprite yellowActiveNodeSprite;
 
+    public Sprite innerLayer;
+    public Sprite outerLayer;
+
     public bool isLayerActive;
 
     public Node nodeType;
@@ -34,31 +37,8 @@ public class Layer : MonoBehaviour
         node.nodeType = type;
         node.angle = angle;
 
-        switch (type)
-        {
-            case Node.NODETYPE.BLUE:
-                {
-                    node.GetComponent<SpriteRenderer>().sprite = blueInactiveNodeSprite;
-
-                    break;
-                }
-            case Node.NODETYPE.RED:
-                {
-                    node.GetComponent<SpriteRenderer>().sprite = redInactiveNodeSprite;
-
-                    break;
-                }
-            case Node.NODETYPE.YELLOW:
-                {
-                    node.GetComponent<SpriteRenderer>().sprite = yellowInactiveNodeSprite;
-
-                    break;
-                }
-            default:
-                {
-                    break;
-                }
-        }
+        node.SetNodeType(type);
+        node.SetNodeState(Node.NODESTATE.INACTIVE);
 
         node.transform.SetParent(this.transform);
 
@@ -69,6 +49,12 @@ public class Layer : MonoBehaviour
     {
         GenerateNode(Node.NODEPOSITION.INNER, Node.NODETYPE.BLUE, 0f);
         GenerateNode(Node.NODEPOSITION.OUTER, Node.NODETYPE.BLUE, 20f);
+
+        GenerateNode(Node.NODEPOSITION.INNER, Node.NODETYPE.RED, 40f);
+        GenerateNode(Node.NODEPOSITION.OUTER, Node.NODETYPE.RED, 100f);
+
+        GenerateNode(Node.NODEPOSITION.INNER, Node.NODETYPE.YELLOW, 150f);
+        GenerateNode(Node.NODEPOSITION.OUTER, Node.NODETYPE.YELLOW, 220f);
     }
 
     public void HideLayerContent()
@@ -118,16 +104,19 @@ public class Layer : MonoBehaviour
         switch (layerIndex)
         {
             case 0:
-                targetScale = new Vector2(20f, 20f);
+                targetScale = new Vector2(0.0f, 0.0f);
                 transform.position = new Vector3(transform.position.x, transform.position.y, 1f);
+                gameObject.GetComponent<SpriteRenderer>().sprite = innerLayer;
                 break;
             case 1:
-                targetScale = new Vector2(50f, 50f);
+                targetScale = new Vector2(0.1f, 0.1f);
                 transform.position = new Vector3(transform.position.x, transform.position.y, 2f);
+                gameObject.GetComponent<SpriteRenderer>().sprite = innerLayer;
                 break;
             case 2:
-                targetScale = new Vector2(80f, 80f);
+                targetScale = new Vector2(0.13f, 0.13f);
                 transform.position = new Vector3(transform.position.x, transform.position.y, 3f);
+                gameObject.GetComponent<SpriteRenderer>().sprite = outerLayer;
                 break;
             default:
                 break;

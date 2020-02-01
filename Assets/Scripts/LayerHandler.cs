@@ -37,8 +37,6 @@ public class LayerHandler : MonoBehaviour
 
     public void GenerateInitialLayers()
     {
-        float scaleAmount = 0f;
-
         for (int i = 0; i < initialLayerCount; i++)
         {
             GameObject layer = Instantiate(layerObject);
@@ -48,14 +46,34 @@ public class LayerHandler : MonoBehaviour
 
             layerScript.layerIndex = i;
 
-            layer.transform.localScale = new Vector2(scaleAmount + (i * 10f), scaleAmount + (i * 10f));
+            switch (i)
+            {
+                case 0:
+                    {
+                        layer.transform.localScale = new Vector2(0f, 0f);
+
+                        break;
+                    }
+
+                case 1:
+                    {
+                        layer.transform.localScale = new Vector2(0.1f, 0.1f);
+
+                        break;
+                    }
+                case 2:
+                    {
+                        layer.transform.localScale = new Vector2(0.13f, 0.13f);
+
+                        break;
+                    }
+            }
+            
             layer.transform.localPosition = new Vector3(layer.transform.localPosition.x, layer.transform.localPosition.y, i);
 
             layerScript.UpdateTargetScale();
 
             layers.Add(layer);
-
-            scaleAmount += 20f;
         }
     }
 

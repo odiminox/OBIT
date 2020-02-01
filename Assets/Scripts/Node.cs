@@ -26,6 +26,94 @@ public class Node : MonoBehaviour
 
     public bool isSolved;
 
+    public Sprite blueInactiveNodeSprite;
+    public Sprite redInactiveNodeSprite;
+    public Sprite yellowInactiveNodeSprite;
+
+    public Sprite blueActiveNodeSprite;
+    public Sprite redActiveNodeSprite;
+    public Sprite yellowActiveNodeSprite;
+
+    public void SetNodeType(NODETYPE nodeType)
+    {
+        this.nodeType = nodeType;
+    }
+
+    public void SetNodeState(NODESTATE nodeState)
+    {
+        switch (nodeState)
+        {
+            case NODESTATE.INACTIVE:
+                {
+                    switch (nodeType)
+                    {
+                        case NODETYPE.BLUE:
+                            {
+                                gameObject.GetComponent<SpriteRenderer>().sprite = blueInactiveNodeSprite;
+
+                                gameObject.GetComponent<BoxCollider2D>().enabled = true;
+
+                                break;
+                            }
+                        case NODETYPE.RED:
+                            {
+                                gameObject.GetComponent<SpriteRenderer>().sprite = redInactiveNodeSprite;
+
+                                gameObject.GetComponent<BoxCollider2D>().enabled = true;
+
+                                break;
+                            }
+                        case NODETYPE.YELLOW:
+                            {
+                                gameObject.GetComponent<SpriteRenderer>().sprite = yellowInactiveNodeSprite;
+
+                                gameObject.GetComponent<BoxCollider2D>().enabled = true;
+
+                                break;
+                            }
+                    }
+
+                    break;
+                }
+            case NODESTATE.ACTIVE:
+                {
+                    switch (nodeType)
+                    {
+                        case NODETYPE.BLUE:
+                            {
+                                gameObject.GetComponent<SpriteRenderer>().sprite = blueActiveNodeSprite;
+
+                                gameObject.GetComponent<BoxCollider2D>().enabled = false;
+
+                                break;
+                            }
+                        case NODETYPE.RED:
+                            {
+                                gameObject.GetComponent<SpriteRenderer>().sprite = redActiveNodeSprite;
+
+                                gameObject.GetComponent<BoxCollider2D>().enabled = false;
+
+                                break;
+                            }
+                        case NODETYPE.YELLOW:
+                            {
+                                gameObject.GetComponent<SpriteRenderer>().sprite = yellowActiveNodeSprite;
+
+                                gameObject.GetComponent<BoxCollider2D>().enabled = false;
+
+                                break;
+                            }
+                    }
+
+                    break;
+                }
+            default:
+                {
+                    break;
+                }
+        }
+    }
+
     // Start is called before the first frame update
     void Start()
     {
