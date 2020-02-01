@@ -28,7 +28,7 @@ public class PlayerControls : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0))
         {
-            RaycastHit2D hitInner = Physics2D.Raycast(transform.position, Vector2.up);
+            RaycastHit2D hitInner = Physics2D.Raycast(transform.position, transform.TransformDirection(-Vector2.left));
 
             if (hitInner.collider != null)
             {
@@ -50,7 +50,7 @@ public class PlayerControls : MonoBehaviour
                 }
             }
 
-            RaycastHit2D hitOuter = Physics2D.Raycast(transform.position, -Vector2.up);
+            RaycastHit2D hitOuter = Physics2D.Raycast(transform.position, transform.TransformDirection(Vector2.left));
 
             if (hitOuter.collider != null)
             {
@@ -110,9 +110,13 @@ public class PlayerControls : MonoBehaviour
                     nodeBDetected.isSolved = true;
                     nodeADetected.isSolved = true;
                 }
-                else if ((nodeBDetected.nodeType == Node.NODETYPE.ORANGE) && (nodeADetected.nodeType == Node.NODETYPE.ORANGE))
+                else if ((nodeBDetected.nodeType == Node.NODETYPE.YELLOW) && (nodeADetected.nodeType == Node.NODETYPE.YELLOW))
                 {
-                    Debug.Log("MATCH ON ORANGE");
+                    Debug.Log("MATCH ON YELLOW");
+                }
+                else if ((nodeBDetected.nodeType == Node.NODETYPE.RED) && (nodeADetected.nodeType == Node.NODETYPE.RED))
+                {
+                    Debug.Log("MATCH ON RED");
                 }
                 else
                 {

@@ -97,8 +97,22 @@ MonoBehaviour:
   canScale: 0
   scaleSpeed: 10
   layerIndex: 0
-  IsLayerActive: 0
+  blueInactiveNodeSprite: {fileID: 21300000, guid: 73dd8de840151a84b98fc0418d18cb4a,
+    type: 3}
+  redInactiveNodeSprite: {fileID: 21300000, guid: 51ff5baa9f0c7e74094131effab5f013,
+    type: 3}
+  yellowInactiveNodeSprite: {fileID: 21300000, guid: ec95321799f350447852df15e782f837,
+    type: 3}
+  blueActiveNodeSprite: {fileID: 21300000, guid: a31729bfabccbfc47b79a3c49c32db85,
+    type: 3}
+  redActiveNodeSprite: {fileID: 21300000, guid: 7d81a9a520fb7af42b3f1eb7c9ebe2b2,
+    type: 3}
+  yellowActiveNodeSprite: {fileID: 21300000, guid: 6e54ac51540d489498569bea2147a8bb,
+    type: 3}
+  isLayerActive: 0
   nodeType: {fileID: 3043417348030417986, guid: 0a5cb299089fde04db74ca51f65039f7,
     type: 3}
+  forceLayerComplete: 0
   targetScale: {x: 0, y: 0}
   layerNodes: []
+  complete: 0

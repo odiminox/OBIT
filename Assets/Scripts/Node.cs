@@ -7,8 +7,11 @@ public class Node : MonoBehaviour
     public enum NODEPOSITION { INNER, OUTER };
     public NODEPOSITION nodePosition;
 
-    public enum NODETYPE { BLUE, ORANGE };
+    public enum NODETYPE { BLUE, RED, YELLOW};
     public NODETYPE nodeType;
+
+    public enum NODESTATE { ACTIVE, INACTIVE };
+    public NODESTATE nodeState = NODESTATE.INACTIVE;
 
     public float innerDepth = -0.038f;
     public float outerDepth = -0.0824f;
@@ -31,6 +34,7 @@ public class Node : MonoBehaviour
             case NODEPOSITION.INNER:
                 {
                     transform.localPosition = new Vector2(transform.position.x, innerDepth);
+                    transform.localScale = new Vector2(transform.localScale.x, -transform.localScale.y);
 
                     break;
                 }
