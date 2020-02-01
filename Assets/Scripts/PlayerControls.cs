@@ -36,10 +36,14 @@ public class PlayerControls : MonoBehaviour
         {
             case DIRECTION.LEFT:
                 {
+                    transform.RotateAround(pivot.transform.position, Vector3.forward, (speed * Time.deltaTime));
+
                     break;
                 }
             case DIRECTION.RIGHT:
                 {
+                    transform.RotateAround(pivot.transform.position, Vector3.forward, -(speed * Time.deltaTime));
+
                     break;
                 }
             default:
@@ -48,6 +52,5 @@ public class PlayerControls : MonoBehaviour
                 }
         }
 
-        transform.RotateAround(pivot.transform.position, Vector3.forward, speed * Time.deltaTime);
     }
 }
