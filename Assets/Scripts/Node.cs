@@ -34,6 +34,31 @@ public class Node : MonoBehaviour
     public Sprite redActiveNodeSprite;
     public Sprite yellowActiveNodeSprite;
 
+    public GameObject glow;
+
+    public Sprite blueGlow;
+    public Sprite redGlow;
+    public Sprite yellowGlow;
+
+    Color basicColour = Color.white;
+    Color targetColour = new Vector4(1f, 1f, 1f, 0f);
+
+    IEnumerator FadeTo(float aValue, float aTime)
+    {
+        glow.GetComponent<SpriteRenderer>().color = basicColour;
+        glow.GetComponent<SpriteRenderer>().material.color = basicColour;
+
+        float alpha = glow.GetComponent<SpriteRenderer>().material.color.a;
+
+        for (float t = 0.0f; t < 1.0f; t += Time.deltaTime / aTime)
+        {
+            Color newColor = new Color(1, 1, 1, Mathf.Lerp(alpha, aValue, t));
+            glow.GetComponent<SpriteRenderer>().material.color = newColor;
+
+            yield return null;
+        }
+    }
+
     public void SetNodeType(NODETYPE nodeType)
     {
         this.nodeType = nodeType;
@@ -83,13 +108,19 @@ public class Node : MonoBehaviour
                             {
                                 gameObject.GetComponent<SpriteRenderer>().sprite = blueActiveNodeSprite;
 
-                                gameObject.GetComponent<BoxCollider2D>().enabled = false;
+                                glow.GetComponent<SpriteRenderer>().sprite = blueGlow;
+                                StartCoroutine(FadeTo(0.0f, 1.0f));
 
+                                gameObject.GetComponent<BoxCollider2D>().enabled = false;
+                               
                                 break;
                             }
                         case NODETYPE.RED:
                             {
                                 gameObject.GetComponent<SpriteRenderer>().sprite = redActiveNodeSprite;
+
+                                glow.GetComponent<SpriteRenderer>().sprite = redGlow;
+                                StartCoroutine(FadeTo(0.0f, 1.0f));
 
                                 gameObject.GetComponent<BoxCollider2D>().enabled = false;
 
@@ -98,6 +129,9 @@ public class Node : MonoBehaviour
                         case NODETYPE.YELLOW:
                             {
                                 gameObject.GetComponent<SpriteRenderer>().sprite = yellowActiveNodeSprite;
+
+                                glow.GetComponent<SpriteRenderer>().sprite = yellowGlow;
+                                StartCoroutine(FadeTo(0.0f, 1.0f));
 
                                 gameObject.GetComponent<BoxCollider2D>().enabled = false;
 
@@ -141,6 +175,8 @@ public class Node : MonoBehaviour
         pivot = GameObject.Find("Pivot");
 
         direction = transform.position - pivot.transform.position;
+
+        glow.GetComponent<SpriteRenderer>().color = targetColour;
     }
 
     // Update is called once per frame
