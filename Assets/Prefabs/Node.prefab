@@ -100,7 +100,7 @@ MonoBehaviour:
   nodeType: 0
   nodeState: 1
   innerDepth: -17.3
-  outerDepth: -45.6
+  outerDepth: -39
   angle: 23.21
   isSolved: 0
   blueInactiveNodeSprite: {fileID: 21300000, guid: 73dd8de840151a84b98fc0418d18cb4a,

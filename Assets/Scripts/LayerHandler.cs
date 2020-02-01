@@ -63,7 +63,7 @@ public class LayerHandler : MonoBehaviour
                     }
                 case 2:
                     {
-                        layer.transform.localScale = new Vector2(0.13f, 0.13f);
+                        layer.transform.localScale = new Vector2(0.105f, 0.105f);
 
                         break;
                     }
