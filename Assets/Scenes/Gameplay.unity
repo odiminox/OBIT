@@ -295,9 +295,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 15b1a1d45f9316f4ba33d4c71336c11d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pipesA: {fileID: 0}
-  pipesB: {fileID: 0}
-  pipesC: {fileID: 0}
+  pipesA: {fileID: 21300000, guid: 7fba9ae7d0f7b864a9e023a36a983296, type: 3}
+  pipesB: {fileID: 21300000, guid: db983963405be2743870894b80462774, type: 3}
+  pipesC: {fileID: 21300000, guid: ec5f38bb307c25144a3f2fe0a26ea4a4, type: 3}
 --- !u!212 &369904336
 SpriteRenderer:
   m_ObjectHideFlags: 0
