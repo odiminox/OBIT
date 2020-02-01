@@ -8,6 +8,14 @@ public class Layer : MonoBehaviour
     public float scaleSpeed;
     public int layerIndex;
 
+    public Sprite blueInactiveNodeSprite;
+    public Sprite redInactiveNodeSprite;
+    public Sprite yellowInactiveNodeSprite;
+
+    public Sprite blueActiveNodeSprite;
+    public Sprite redActiveNodeSprite;
+    public Sprite yellowActiveNodeSprite;
+
     public bool isLayerActive;
 
     public Node nodeType;
@@ -23,7 +31,6 @@ public class Layer : MonoBehaviour
         Node node = Instantiate(nodeType);
         node.nodePosition = position;
         node.transform.position = new Vector3(0, 0, -2f);
-        node.transform.localScale = new Vector3(1f, 1f, 1f);
         node.nodeType = type;
         node.angle = angle;
 
@@ -31,13 +38,19 @@ public class Layer : MonoBehaviour
         {
             case Node.NODETYPE.BLUE:
                 {
-                    node.gameObject.GetComponent<SpriteRenderer>().color = new Color(0f, 0f, 1f);
+                    node.GetComponent<SpriteRenderer>().sprite = blueInactiveNodeSprite;
 
                     break;
                 }
-            case Node.NODETYPE.ORANGE:
+            case Node.NODETYPE.RED:
                 {
-                    node.gameObject.GetComponent<SpriteRenderer>().color = new Color(0f, 0f, 1f);
+                    node.GetComponent<SpriteRenderer>().sprite = redInactiveNodeSprite;
+
+                    break;
+                }
+            case Node.NODETYPE.YELLOW:
+                {
+                    node.GetComponent<SpriteRenderer>().sprite = yellowInactiveNodeSprite;
 
                     break;
                 }
@@ -129,8 +142,7 @@ public class Layer : MonoBehaviour
         GenerateLayerNodes();
     }
 
-
-    public bool complete = false;
+    public bool complete;
 
     public void CheckForLayerComplete()
     {
