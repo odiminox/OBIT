@@ -18,6 +18,23 @@ public class LayerHandler : MonoBehaviour
         GenerateInitialLayers();
     }
 
+    public void OnLayerComplete()
+    {
+        GameObject layer = Instantiate(layerObject);
+        layer.transform.SetParent(this.transform);
+
+        Layer layerScript = layer.GetComponent<Layer>();
+
+        layerScript.layerIndex = 0;
+
+        layer.transform.localScale = new Vector2(0f, 0f);
+        layer.transform.localPosition = new Vector3(layer.transform.localPosition.x, layer.transform.localPosition.y, 0);
+
+        layerScript.UpdateTargetScale();
+
+        layers.Add(layer);
+    }
+
     public void GenerateInitialLayers()
     {
         float scaleAmount = 0f;
@@ -46,6 +63,7 @@ public class LayerHandler : MonoBehaviour
     void Start()
     {
         GameplayManager.play.AddListener(OnGameStart);
+        GameplayManager.layerComplete.AddListener(OnLayerComplete);
     }
 
     // Update is called once per frame

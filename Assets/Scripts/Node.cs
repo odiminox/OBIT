@@ -7,6 +7,9 @@ public class Node : MonoBehaviour
     public enum NODEPOSITION { INNER, OUTER };
     public NODEPOSITION nodePosition;
 
+    public enum NODETYPE { BLUE, ORANGE };
+    public NODETYPE nodeType;
+
     public float innerDepth = -0.038f;
     public float outerDepth = -0.0824f;
 
@@ -17,6 +20,8 @@ public class Node : MonoBehaviour
     private Vector3 rotationAxis;
 
     Vector3 direction;
+
+    public bool isSolved;
 
     // Start is called before the first frame update
     void Start()
@@ -37,7 +42,6 @@ public class Node : MonoBehaviour
                 }
             default:
                 break;
-
         }
 
         rotationAxis = new Vector3(0f, 0f, 1f);

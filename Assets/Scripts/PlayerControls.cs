@@ -71,36 +71,6 @@ public class PlayerControls : MonoBehaviour
                     }
                 }
             }
-
-            if ((nodeBDetected != null) && nodeADetected != null)
-            {
-                if ((nodeBDetected.nodeType == Node.NODETYPE.BLUE) && (nodeADetected.nodeType == Node.NODETYPE.BLUE))
-                {
-                    Debug.Log("MATCH ON BLUE");
-
-                    nodeBDetected.isSolved = true;
-                    nodeADetected.isSolved = true;
-                }
-                else if ((nodeBDetected.nodeType == Node.NODETYPE.ORANGE) && (nodeADetected.nodeType == Node.NODETYPE.ORANGE))
-                {
-                    Debug.Log("MATCH ON ORANGE");
-                }
-                else
-                {
-                    Debug.Log("INCORRECT MATCH");
-                }
-
-                nodeADetected = null;
-                nodeBDetected = null;
-            }
-
-            if (!didDetect)
-            {
-                Debug.Log("MISS!");
-
-                nodeADetected = null;
-                nodeBDetected = null;
-            }
         }
     }
 
@@ -124,6 +94,33 @@ public class PlayerControls : MonoBehaviour
                 {
                     currentDirection = DIRECTION.LEFT;
                 }
+
+                Debug.Log("MISS!");
+
+                nodeADetected = null;
+                nodeBDetected = null;
+            }
+
+            if ((nodeBDetected != null) && nodeADetected != null)
+            {
+                if ((nodeBDetected.nodeType == Node.NODETYPE.BLUE) && (nodeADetected.nodeType == Node.NODETYPE.BLUE))
+                {
+                    Debug.Log("MATCH ON BLUE");
+
+                    nodeBDetected.isSolved = true;
+                    nodeADetected.isSolved = true;
+                }
+                else if ((nodeBDetected.nodeType == Node.NODETYPE.ORANGE) && (nodeADetected.nodeType == Node.NODETYPE.ORANGE))
+                {
+                    Debug.Log("MATCH ON ORANGE");
+                }
+                else
+                {
+                    Debug.Log("INCORRECT MATCH");
+                }
+
+                nodeADetected = null;
+                nodeBDetected = null;
             }
         }
 

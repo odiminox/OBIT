@@ -11,15 +11,23 @@ public class Descender : MonoBehaviour
 
     List<Layer> layers = new List<Layer>();
 
+    Layer activeLayer;
+
     // Start is called before the first frame update
     void Start()
     {
         GameplayManager.play.AddListener(OnGameStart);
+        GameplayManager.layerComplete.AddListener(OnLayerComplete);
     }
 
     public void OnGameStart()
     {
         layers = layersRoot.GetComponentsInChildren<Layer>().ToList();
+    }
+
+    public void OnLayerComplete()
+    {
+        descend = true;
     }
 
     // Update is called once per frame
@@ -31,6 +39,8 @@ public class Descender : MonoBehaviour
             {
                 layer.canScale = true;
             }
+
+            descend = false;
         }
     }
 }
