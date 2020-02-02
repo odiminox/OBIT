@@ -50,11 +50,11 @@ public class Layer : MonoBehaviour
         GenerateNode(Node.NODEPOSITION.INNER, Node.NODETYPE.BLUE, 0f);
         GenerateNode(Node.NODEPOSITION.OUTER, Node.NODETYPE.BLUE, 20f);
 
-        /*GenerateNode(Node.NODEPOSITION.INNER, Node.NODETYPE.RED, 40f);
+        GenerateNode(Node.NODEPOSITION.INNER, Node.NODETYPE.RED, 40f);
         GenerateNode(Node.NODEPOSITION.OUTER, Node.NODETYPE.RED, 100f);
 
         GenerateNode(Node.NODEPOSITION.INNER, Node.NODETYPE.YELLOW, 150f);
-        GenerateNode(Node.NODEPOSITION.OUTER, Node.NODETYPE.YELLOW, 220f);*/
+        GenerateNode(Node.NODEPOSITION.OUTER, Node.NODETYPE.YELLOW, 220f);
     }
 
     public void HideLayerContent()
