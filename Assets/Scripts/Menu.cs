@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -12,7 +13,11 @@ public class Menu : MonoBehaviour
 
     public bool canDecrease;
 
+    public TextMeshProUGUI text;
+
     Coroutine route;
+
+    int score = 0;
 
     IEnumerator FadeTo(float aValue, float aTime)
     {
@@ -38,11 +43,17 @@ public class Menu : MonoBehaviour
         title.SetActive(false);
         button.gameObject.SetActive(false);
 
+        route = StartCoroutine(FadeTo(0.0f, 1000.0f));
+
         GameplayManager.play.Invoke();
     }
 
     public void OnLayerComplete()
     {
+        text.text = score.ToString();
+
+        score++;
+
         StopCoroutine(route);
 
         bar.transform.localScale = new Vector3(0.43f, 0.1f);
@@ -65,9 +76,6 @@ public class Menu : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
-        route = StartCoroutine(FadeTo(0.0f, 1000.0f));
-
         GameplayManager.correctMatch.AddListener(OnCorrectMatch);
 
         GameplayManager.finishedLevelTransition.AddListener(OnLayerComplete);

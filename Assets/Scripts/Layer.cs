@@ -35,6 +35,8 @@ public class Layer : MonoBehaviour
     Dictionary<float, bool> innerPositions = new Dictionary<float, bool>();
     Dictionary<float, bool> outerPositions = new Dictionary<float, bool>();
 
+    List<float> keyList;
+
     public void GenerateNode(Node.NODEPOSITION position, Node.NODETYPE type, float angle)
     {
         Node node = Instantiate(nodeType);
@@ -73,8 +75,6 @@ public class Layer : MonoBehaviour
 
     float GetFreshKeyFromInner()
     {
-
-        List<float> keyList = new List<float>(innerPositions.Keys);
 
         float randomKey = keyList[rand.Next(keyList.Count)];
 
@@ -364,6 +364,8 @@ public class Layer : MonoBehaviour
         innerPositions.Add(320f, false);
         innerPositions.Add(340f, false);
         innerPositions.Add(360f, false);
+
+        keyList = new List<float>(innerPositions.Keys);
 
         GenerateLayerNodes();
 
