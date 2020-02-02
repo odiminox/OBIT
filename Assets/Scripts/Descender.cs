@@ -17,7 +17,6 @@ public class Descender : MonoBehaviour
     void Start()
     {
         GameplayManager.play.AddListener(OnGameStart);
-        GameplayManager.layerComplete.AddListener(OnLayerComplete);
     }
 
     public void OnGameStart()
@@ -25,22 +24,9 @@ public class Descender : MonoBehaviour
         layers = layersRoot.GetComponentsInChildren<Layer>().ToList();
     }
 
-    public void OnLayerComplete()
-    {
-        descend = true;
-    }
-
     // Update is called once per frame
     void Update()
     {
-        if (descend)
-        {
-            foreach (var layer in layers)
-            {
-                layer.canScale = true;
-            }
 
-            descend = false;
-        }
     }
 }

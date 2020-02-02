@@ -13,8 +13,8 @@ public class Node : MonoBehaviour
     public enum NODESTATE { ACTIVE, INACTIVE };
     public NODESTATE nodeState = NODESTATE.INACTIVE;
 
-    public float innerDepth = -0.038f;
-    public float outerDepth = -0.0824f;
+    public float innerDepth = -17.3f;
+    public float outerDepth = -39;
 
     public float angle;
 
@@ -177,14 +177,59 @@ public class Node : MonoBehaviour
         direction = transform.position - pivot.transform.position;
 
         glow.GetComponent<SpriteRenderer>().color = targetColour;
+
+        GameplayManager.finishedLevelTransition.AddListener(OnInitialise);
+
+        Quaternion rot = Quaternion.AngleAxis(angle, rotationAxis);
+        transform.localRotation = rot;
+        transform.position = pivot.transform.position + rot * direction;
+        transform.position = new Vector3(transform.position.x, transform.position.y, 1f);
     }
+
+    bool initiailised;
+
+    public void OnInitialise()
+    {
+        switch (nodePosition)
+        {
+            case NODEPOSITION.INNER:
+                {
+                    transform.localPosition = new Vector2(transform.position.x, innerDepth);
+                    transform.localScale = new Vector2(transform.localScale.x, -transform.localScale.y);
+
+                    break;
+                }
+            case NODEPOSITION.OUTER:
+                {
+                    transform.localPosition = new Vector2(transform.position.x, outerDepth);
+
+                    break;
+                }
+            default:
+                break;
+        }
+
+        rotationAxis = new Vector3(0f, 0f, 1f);
+
+        pivot = GameObject.Find("Pivot");
+
+        direction = transform.position - pivot.transform.position;
+
+        glow.GetComponent<SpriteRenderer>().color = targetColour;
+
+        Quaternion rot = Quaternion.AngleAxis(angle, rotationAxis);
+        transform.localRotation = rot;
+        transform.position = pivot.transform.position + rot * direction;
+        transform.position = new Vector3(transform.position.x, transform.position.y, 1f);
+
+        gameObject.transform.localScale = Vector2.one;
+    }
+
 
     // Update is called once per frame
     void Update()
     {
         Quaternion rot = Quaternion.AngleAxis(angle, rotationAxis);
-        transform.position = pivot.transform.position + rot * direction;
-        transform.position = new Vector3(transform.position.x, transform.position.y, 1f);
         transform.localRotation = rot;
     }
 }

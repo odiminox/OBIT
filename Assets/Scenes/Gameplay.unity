@@ -170,6 +170,7 @@ MonoBehaviour:
   initialLayerCount: 3
   layerObject: {fileID: 5295673438998755004, guid: a56e14c1e6dfa3f42ad89c487398a424,
     type: 3}
+  pipes: {fileID: 369904333}
 --- !u!1 &286064875
 GameObject:
   m_ObjectHideFlags: 0
@@ -788,6 +789,7 @@ MonoBehaviour:
   layers: {fileID: 75960525}
   pipes: {fileID: 369904333}
   gameState: 1
+  completeLayer: 1
 --- !u!4 &8054102111426144972
 Transform:
   m_ObjectHideFlags: 0

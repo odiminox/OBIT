@@ -22,6 +22,10 @@ public class GameplayManager : MonoBehaviour
 
     public static UnityEvent layerComplete = new UnityEvent();
 
+    public static UnityEvent finishedLevelTransition = new UnityEvent();
+
+    public bool completeLayer;
+
     public void StartGame()
     {
         player.SetActive(true);
@@ -39,6 +43,13 @@ public class GameplayManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (completeLayer)
+        {
+            completeLayer = false;
+
+            layerComplete.Invoke();
+        }
+
         switch (gameState)
         {
             case GAME_STATE.MENU:

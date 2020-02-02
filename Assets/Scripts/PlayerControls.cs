@@ -148,7 +148,6 @@ public class PlayerControls : MonoBehaviour
         return ret;
     }
 
-
     Color basicColour = Color.white;
     Color targetColour = new Vector4(1f, 1f, 1f, 0f);
 
