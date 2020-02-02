@@ -314,6 +314,9 @@ public class Layer : MonoBehaviour
                     transform.position = new Vector3(transform.position.x, transform.position.y, layerIndex);
                     gameObject.GetComponent<SpriteRenderer>().sprite = innerLayer;
 
+                    CircleCollider2D collider = gameObject.AddComponent<CircleCollider2D>();
+                    collider.radius = 12f;
+
                     layerIndex = 1;
 
                     break;

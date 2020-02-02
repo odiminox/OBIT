@@ -118,4 +118,5 @@ MonoBehaviour:
   forceLayerComplete: 0
   targetScale: {x: 0, y: 0}
   layerNodes: []
+  blendShader: 0
   complete: 0
