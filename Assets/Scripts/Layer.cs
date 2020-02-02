@@ -315,7 +315,7 @@ public class Layer : MonoBehaviour
                     gameObject.GetComponent<SpriteRenderer>().sprite = innerLayer;
 
                     CircleCollider2D collider = gameObject.AddComponent<CircleCollider2D>();
-                    collider.radius = 12f;
+                    collider.radius = 8f;
 
                     layerIndex = 1;
 

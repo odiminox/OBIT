@@ -111,6 +111,8 @@ public class PlayerControls : MonoBehaviour
                 nodeADetected = null;
                 nodeBDetected = null;
 
+                GameplayManager.correctMatch.Invoke();
+
                 ret = true;
             }
             else if ((nodeBDetected.nodeType == Node.NODETYPE.YELLOW) && (nodeADetected.nodeType == Node.NODETYPE.YELLOW))
@@ -120,6 +122,8 @@ public class PlayerControls : MonoBehaviour
 
                 nodeADetected = null;
                 nodeBDetected = null;
+
+                GameplayManager.correctMatch.Invoke();
 
                 ret = true;
             }
@@ -131,6 +135,8 @@ public class PlayerControls : MonoBehaviour
                 nodeADetected = null;
                 nodeBDetected = null;
 
+                GameplayManager.correctMatch.Invoke();
+
                 ret = true;
             }
             else
@@ -140,6 +146,8 @@ public class PlayerControls : MonoBehaviour
 
                 nodeADetected = null;
                 nodeBDetected = null;
+
+                GameplayManager.correctMatch.Invoke();
 
                 missed.Invoke();
             }

@@ -24,6 +24,8 @@ public class GameplayManager : MonoBehaviour
 
     public static UnityEvent finishedLevelTransition = new UnityEvent();
 
+    public static UnityEvent correctMatch = new UnityEvent();
+
     public bool completeLayer;
 
     public void StartGame()
