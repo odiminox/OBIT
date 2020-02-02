@@ -32,6 +32,9 @@ public class Layer : MonoBehaviour
 
     public List<Node> layerNodes = new List<Node>();
 
+    Dictionary<float, bool> innerPositions = new Dictionary<float, bool>();
+    Dictionary<float, bool> outerPositions = new Dictionary<float, bool>();
+
     public void GenerateNode(Node.NODEPOSITION position, Node.NODETYPE type, float angle)
     {
         Node node = Instantiate(nodeType);
@@ -48,16 +51,103 @@ public class Layer : MonoBehaviour
         layerNodes.Add(node);
     }
 
+    List<int> values = new List<int>();
+
+    int generated = 1;
+
+    public bool GeneratePositions()
+    {
+        int val = Random.Range(0, 360);
+
+        if (values.Contains(val))
+        {
+            GeneratePositions();
+
+            generated++;
+        }
+
+        return true;
+    }
+
+    System.Random rand = new System.Random();
+
+    float GetFreshKeyFromInner()
+    {
+
+        List<float> keyList = new List<float>(innerPositions.Keys);
+
+        float randomKey = keyList[rand.Next(keyList.Count)];
+
+        if (innerPositions[randomKey])
+        {
+            GetFreshKeyFromInner();
+        }
+
+        innerPositions[randomKey] = true;
+
+        return randomKey;
+    }
+
+
     public void GenerateLayerNodes()
     {
-        GenerateNode(Node.NODEPOSITION.INNER, Node.NODETYPE.BLUE, 0f);
-        GenerateNode(Node.NODEPOSITION.OUTER, Node.NODETYPE.BLUE, 20f);
+        int numNodes = Random.Range(1, 4);
 
-        GenerateNode(Node.NODEPOSITION.INNER, Node.NODETYPE.RED, 40f);
-        GenerateNode(Node.NODEPOSITION.OUTER, Node.NODETYPE.RED, 100f);
+        switch(numNodes)
+        {
+            case 1:
+                {
+                    float innerKey = GetFreshKeyFromInner();
+                    float outerKey = GetFreshKeyFromInner();
 
-        GenerateNode(Node.NODEPOSITION.INNER, Node.NODETYPE.YELLOW, 150f);
-        GenerateNode(Node.NODEPOSITION.OUTER, Node.NODETYPE.YELLOW, 220f);
+                    GenerateNode(Node.NODEPOSITION.INNER, Node.NODETYPE.BLUE, innerKey);
+                    GenerateNode(Node.NODEPOSITION.OUTER, Node.NODETYPE.BLUE, outerKey);
+
+                    break;
+                }
+            case 2:
+                {
+                    float innerKey = GetFreshKeyFromInner();
+                    float outerKey = GetFreshKeyFromInner();
+
+                    GenerateNode(Node.NODEPOSITION.INNER, Node.NODETYPE.BLUE, innerKey);
+                    GenerateNode(Node.NODEPOSITION.OUTER, Node.NODETYPE.BLUE, outerKey);
+
+                    innerKey = GetFreshKeyFromInner();
+                    outerKey = GetFreshKeyFromInner();
+
+                    GenerateNode(Node.NODEPOSITION.INNER, Node.NODETYPE.RED, innerKey);
+                    GenerateNode(Node.NODEPOSITION.OUTER, Node.NODETYPE.RED, outerKey);
+
+                    break;
+                }
+            case 3:
+                {
+                    float innerKey = GetFreshKeyFromInner();
+                    float outerKey = GetFreshKeyFromInner();
+
+                    GenerateNode(Node.NODEPOSITION.INNER, Node.NODETYPE.BLUE, innerKey);
+                    GenerateNode(Node.NODEPOSITION.OUTER, Node.NODETYPE.BLUE, outerKey);
+
+                    innerKey = GetFreshKeyFromInner();
+                    outerKey = GetFreshKeyFromInner();
+
+                    GenerateNode(Node.NODEPOSITION.INNER, Node.NODETYPE.RED, innerKey);
+                    GenerateNode(Node.NODEPOSITION.OUTER, Node.NODETYPE.RED, outerKey);
+
+                    innerKey = GetFreshKeyFromInner();
+                    outerKey = GetFreshKeyFromInner();
+
+                    GenerateNode(Node.NODEPOSITION.INNER, Node.NODETYPE.YELLOW, innerKey);
+                    GenerateNode(Node.NODEPOSITION.OUTER, Node.NODETYPE.YELLOW, outerKey);
+
+                    break;
+                }
+            default:
+                {
+                    break;
+                }
+        }
     }
 
     public void HideLayerContent()
@@ -252,6 +342,26 @@ public class Layer : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        innerPositions.Add(0f, false);
+        innerPositions.Add(20f, false);
+        innerPositions.Add(40f, false);
+        innerPositions.Add(60f, false);
+        innerPositions.Add(80f, false);
+        innerPositions.Add(100f, false);
+        innerPositions.Add(120f, false);
+        innerPositions.Add(140f, false);
+        innerPositions.Add(160f, false);
+        innerPositions.Add(180f, false);
+        innerPositions.Add(200f, false);
+        innerPositions.Add(220f, false);
+        innerPositions.Add(240f, false);
+        innerPositions.Add(260f, false);
+        innerPositions.Add(280f, false);
+        innerPositions.Add(300f, false);
+        innerPositions.Add(320f, false);
+        innerPositions.Add(340f, false);
+        innerPositions.Add(360f, false);
+
         GenerateLayerNodes();
 
         GameplayManager.layerComplete.AddListener(OnLayerComplete);

@@ -195,7 +195,7 @@ public class Node : MonoBehaviour
             case NODEPOSITION.INNER:
                 {
                     transform.localPosition = new Vector2(transform.position.x, innerDepth);
-                    transform.localScale = new Vector2(transform.localScale.x, -transform.localScale.y);
+                    transform.localScale = new Vector2(transform.localScale.x, transform.localScale.y);
 
                     break;
                 }
