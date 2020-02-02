@@ -190,12 +190,14 @@ public class Node : MonoBehaviour
 
     public void OnInitialise()
     {
+        gameObject.transform.localScale = Vector2.one;
+
         switch (nodePosition)
         {
             case NODEPOSITION.INNER:
                 {
                     transform.localPosition = new Vector2(transform.position.x, innerDepth);
-                    transform.localScale = new Vector2(transform.localScale.x, transform.localScale.y);
+                    transform.localScale = new Vector2(transform.localScale.x, -transform.localScale.y);
 
                     break;
                 }
@@ -221,8 +223,6 @@ public class Node : MonoBehaviour
         transform.localRotation = rot;
         transform.position = pivot.transform.position + rot * direction;
         transform.position = new Vector3(transform.position.x, transform.position.y, 1f);
-
-        gameObject.transform.localScale = Vector2.one;
     }
 
 
