@@ -30,9 +30,11 @@ public class GameplayManager : MonoBehaviour
 
     public void StartGame()
     {
-        player.SetActive(true);
+
         layers.SetActive(true);
         pipes.SetActive(true);
+
+        player.SetActive(true);
         pipes.GetComponent<Pipes>().SetRandomPipes();
     }
 
@@ -69,6 +71,8 @@ public class GameplayManager : MonoBehaviour
                     play.Invoke();
 
                     gameState = GAME_STATE.NEUTRAL;
+
+                    player.SetActive(true);
 
                     break;
                 }

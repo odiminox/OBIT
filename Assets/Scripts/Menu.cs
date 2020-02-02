@@ -6,6 +6,9 @@ using UnityEngine.UI;
 public class Menu : MonoBehaviour
 {
     public GameObject bar;
+    public GameObject outer;
+    public GameObject title;
+    public GameObject button;
 
     public bool canDecrease;
 
@@ -25,6 +28,17 @@ public class Menu : MonoBehaviour
 
             yield return null;
         }
+    }
+
+    public void OnPlayPressed()
+    {
+        bar.SetActive(true);
+        outer.SetActive(true);
+
+        title.SetActive(false);
+        button.gameObject.SetActive(false);
+
+        GameplayManager.play.Invoke();
     }
 
     public void OnLayerComplete()

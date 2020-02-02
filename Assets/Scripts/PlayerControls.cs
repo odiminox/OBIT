@@ -21,6 +21,8 @@ public class PlayerControls : MonoBehaviour
 
     public bool didDetect;
 
+    public AudioSource audioSource;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -113,6 +115,8 @@ public class PlayerControls : MonoBehaviour
 
                 GameplayManager.correctMatch.Invoke();
 
+                audioSource.Play();
+
                 ret = true;
             }
             else if ((nodeBDetected.nodeType == Node.NODETYPE.YELLOW) && (nodeADetected.nodeType == Node.NODETYPE.YELLOW))
@@ -124,6 +128,8 @@ public class PlayerControls : MonoBehaviour
                 nodeBDetected = null;
 
                 GameplayManager.correctMatch.Invoke();
+
+                audioSource.Play();
 
                 ret = true;
             }
@@ -137,6 +143,8 @@ public class PlayerControls : MonoBehaviour
 
                 GameplayManager.correctMatch.Invoke();
 
+                audioSource.Play();
+
                 ret = true;
             }
             else
@@ -146,8 +154,6 @@ public class PlayerControls : MonoBehaviour
 
                 nodeADetected = null;
                 nodeBDetected = null;
-
-                GameplayManager.correctMatch.Invoke();
 
                 missed.Invoke();
             }

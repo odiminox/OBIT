@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class LayerHandler : MonoBehaviour
 {
+    public GameObject player;
+
     public bool generateInitialLayers;
     public float scaleDelta;
 
@@ -37,6 +39,8 @@ public class LayerHandler : MonoBehaviour
 
     public void OnGameStart()
     {
+        player.SetActive(true);
+
         GenerateLayer(Layer.LAYERTYPE.HIDDEN);
         GenerateLayer(Layer.LAYERTYPE.MIDDLE);
         GenerateLayer(Layer.LAYERTYPE.OUTER);
