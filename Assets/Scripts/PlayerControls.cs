@@ -52,8 +52,6 @@ public class PlayerControls : MonoBehaviour
                             if (!nodeADetected.isSolved)
                             {
                                 nodeADetected.SetNodeState(Node.NODESTATE.ACTIVE);
-
-                                Debug.Log("Match on INNER with: " + node.nodeType.ToString());
                             }
                         }
                     }
@@ -79,8 +77,6 @@ public class PlayerControls : MonoBehaviour
                             if (!nodeBDetected.isSolved)
                             {
                                 nodeBDetected.SetNodeState(Node.NODESTATE.ACTIVE);
-
-                                Debug.Log("Match on OUTER with: " + node.nodeType.ToString());
                             }
                         }
                     }
@@ -109,8 +105,6 @@ public class PlayerControls : MonoBehaviour
 
             if ((nodeBDetected.nodeType == Node.NODETYPE.BLUE) && (nodeADetected.nodeType == Node.NODETYPE.BLUE))
             {
-                Debug.Log("MATCH ON BLUE");
-
                 nodeBDetected.isSolved = true;
                 nodeADetected.isSolved = true;
 
@@ -121,8 +115,6 @@ public class PlayerControls : MonoBehaviour
             }
             else if ((nodeBDetected.nodeType == Node.NODETYPE.YELLOW) && (nodeADetected.nodeType == Node.NODETYPE.YELLOW))
             {
-                Debug.Log("MATCH ON YELLOW");
-
                 nodeBDetected.isSolved = true;
                 nodeADetected.isSolved = true;
 
@@ -133,8 +125,6 @@ public class PlayerControls : MonoBehaviour
             }
             else if ((nodeBDetected.nodeType == Node.NODETYPE.RED) && (nodeADetected.nodeType == Node.NODETYPE.RED))
             {
-                Debug.Log("MATCH ON RED");
-
                 nodeBDetected.isSolved = true;
                 nodeADetected.isSolved = true;
 
@@ -145,8 +135,6 @@ public class PlayerControls : MonoBehaviour
             }
             else
             {
-                Debug.Log("INCORRECT MATCH");
-
                 nodeADetected.SetNodeState(Node.NODESTATE.INACTIVE);
                 nodeBDetected.SetNodeState(Node.NODESTATE.INACTIVE);
 
@@ -189,8 +177,6 @@ public class PlayerControls : MonoBehaviour
 
             if (!didDetect)
             {
-                Debug.Log("MISS!");
-
                 missed.Invoke();
 
                 if (currentDirection == DIRECTION.LEFT)

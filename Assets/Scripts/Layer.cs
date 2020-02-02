@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class Layer : MonoBehaviour
 {
+    public enum LAYERTYPE { HIDDEN, MIDDLE, OUTER, VOID }
+    public LAYERTYPE layerType = LAYERTYPE.HIDDEN;
+
     public bool canScale;
     public float scaleSpeed;
     public int layerIndex;
@@ -78,46 +81,107 @@ public class Layer : MonoBehaviour
         GameplayManager.currentLayerNum++;
     }
 
+    public void TransitionToNext()
+    {
+        switch (layerType)
+        {
+            case LAYERTYPE.HIDDEN:
+                {
+                    layerType = LAYERTYPE.MIDDLE;
+
+                    layerIndex++;
+
+                    break;
+                }
+            case LAYERTYPE.MIDDLE:
+                {
+                    layerType = LAYERTYPE.OUTER;
+
+                    layerIndex++;
+
+                    break;
+                }
+            case LAYERTYPE.OUTER:
+                {
+                    layerType = LAYERTYPE.VOID;
+
+                    layerIndex++;
+
+                    break;
+                }
+            case LAYERTYPE.VOID:
+                {
+
+                    break;
+                }
+            default:
+                break;
+        }
+    }
+
     public void ScaleUp()
     {
         if (Mathf.Abs(Vector2.Distance(transform.localScale, targetScale)) <= 0.1f)
         {
             canScale = false;
 
-            layerIndex++;
-
             if (layerIndex > 2)
             {
                 Destroy(this);
-            }
-            else
-            {
-                UpdateTargetScale();
             }
         }
 
         transform.localScale = Vector2.Lerp(transform.localScale, targetScale, scaleSpeed * Time.deltaTime);
     }
 
-    public void UpdateTargetScale()
+    public void InitialiseLayer(LAYERTYPE layerType)
     {
-        switch (layerIndex)
+        this.layerType = layerType;
+
+        switch (layerType)
         {
-            case 0:
-                targetScale = new Vector2(0.0f, 0.0f);
-                transform.position = new Vector3(transform.position.x, transform.position.y, 1f);
-                gameObject.GetComponent<SpriteRenderer>().sprite = innerLayer;
-                break;
-            case 1:
-                targetScale = new Vector2(0.1f, 0.1f);
-                transform.position = new Vector3(transform.position.x, transform.position.y, 2f);
-                gameObject.GetComponent<SpriteRenderer>().sprite = innerLayer;
-                break;
-            case 2:
-                targetScale = new Vector2(0.105f, 0.105f);
-                transform.position = new Vector3(transform.position.x, transform.position.y, 3f);
-                gameObject.GetComponent<SpriteRenderer>().sprite = outerLayer;
-                break;
+            case LAYERTYPE.HIDDEN:
+                {
+
+                    layerIndex = 0;
+
+                    transform.localScale = new Vector2(0f, 0f);
+                    targetScale = new Vector2(0.1f, 0.1f);
+
+                    transform.position = new Vector3(transform.position.x, transform.position.y, layerIndex);
+                    gameObject.GetComponent<SpriteRenderer>().sprite = innerLayer;
+
+
+                    break;
+                }
+            case LAYERTYPE.MIDDLE:
+                {
+                    transform.localScale = new Vector2(0.1f, 0.1f);
+                    targetScale = new Vector2(0.105f, 0.105f);
+
+                    transform.position = new Vector3(transform.position.x, transform.position.y, layerIndex);
+                    gameObject.GetComponent<SpriteRenderer>().sprite = innerLayer;
+
+                    layerIndex = 1;
+
+                    break;
+                }
+            case LAYERTYPE.OUTER:
+                {
+                    transform.localScale = new Vector2(0.105f, 0.105f);
+                    targetScale = new Vector2(0.110f, 0.110f);
+
+                    transform.position = new Vector3(transform.position.x, transform.position.y, layerIndex);
+                    gameObject.GetComponent<SpriteRenderer>().sprite = outerLayer;
+
+                    layerIndex = 2;
+
+                    break;
+                }
+            case LAYERTYPE.VOID:
+                {
+                    break;
+                }
             default:
                 break;
         }
@@ -126,18 +190,26 @@ public class Layer : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        UpdateTargetScale();
-
         GenerateLayerNodes();
     }
 
     public bool complete;
 
+    int solvedIndex = 0;
+
     public void CheckForLayerComplete()
     {
         foreach (var node in layerNodes)
         {
-            complete = node.isSolved;
+            if (node.isSolved)
+            {
+                solvedIndex++;
+            }
+        }
+
+        if (solvedIndex == layerNodes.Count)
+        {
+            complete = true;
         }
 
         if (complete)
@@ -146,6 +218,8 @@ public class Layer : MonoBehaviour
 
             GameplayManager.layerComplete.Invoke();
         }
+
+        solvedIndex = 0;
     }
 
     // Update is called once per frame

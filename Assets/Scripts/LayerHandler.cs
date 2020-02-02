@@ -15,66 +15,31 @@ public class LayerHandler : MonoBehaviour
 
     public void OnGameStart()
     {
-        GenerateInitialLayers();
+        GenerateLayer(Layer.LAYERTYPE.HIDDEN);
+        GenerateLayer(Layer.LAYERTYPE.MIDDLE);
+        GenerateLayer(Layer.LAYERTYPE.OUTER);
     }
 
     public void OnLayerComplete()
+    {
+        foreach (var layer in layers)
+        {
+            layer.GetComponent<Layer>().TransitionToNext();
+        }
+
+        GenerateLayer(Layer.LAYERTYPE.HIDDEN);
+    }
+
+    public void GenerateLayer(Layer.LAYERTYPE layerType)
     {
         GameObject layer = Instantiate(layerObject);
         layer.transform.SetParent(this.transform);
 
         Layer layerScript = layer.GetComponent<Layer>();
 
-        layerScript.layerIndex = 0;
-
-        layer.transform.localScale = new Vector2(0f, 0f);
-        layer.transform.localPosition = new Vector3(layer.transform.localPosition.x, layer.transform.localPosition.y, 0);
-
-        layerScript.UpdateTargetScale();
+        layerScript.InitialiseLayer(layerType);
 
         layers.Add(layer);
-    }
-
-    public void GenerateInitialLayers()
-    {
-        for (int i = 0; i < initialLayerCount; i++)
-        {
-            GameObject layer = Instantiate(layerObject);
-            layer.transform.SetParent(this.transform);
-
-            Layer layerScript = layer.GetComponent<Layer>();
-
-            layerScript.layerIndex = i;
-
-            switch (i)
-            {
-                case 0:
-                    {
-                        layer.transform.localScale = new Vector2(0f, 0f);
-
-                        break;
-                    }
-
-                case 1:
-                    {
-                        layer.transform.localScale = new Vector2(0.1f, 0.1f);
-
-                        break;
-                    }
-                case 2:
-                    {
-                        layer.transform.localScale = new Vector2(0.105f, 0.105f);
-
-                        break;
-                    }
-            }
-            
-            layer.transform.localPosition = new Vector3(layer.transform.localPosition.x, layer.transform.localPosition.y, i);
-
-            layerScript.UpdateTargetScale();
-
-            layers.Add(layer);
-        }
     }
 
     // Start is called before the first frame update
