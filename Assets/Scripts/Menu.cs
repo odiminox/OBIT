@@ -10,6 +10,7 @@ public class Menu : MonoBehaviour
     public GameObject outer;
     public GameObject title;
     public GameObject button;
+    public GameObject pipes;
 
     public bool canDecrease;
 
@@ -39,6 +40,7 @@ public class Menu : MonoBehaviour
     {
         bar.SetActive(true);
         outer.SetActive(true);
+        pipes.SetActive(true);
 
         title.SetActive(false);
         button.gameObject.SetActive(false);
